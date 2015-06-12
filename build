@@ -1,0 +1,183 @@
+#!/bin/sh
+# $dodge: build,v 1.16 2008/07/25 01:45:00 dodge Exp $
+
+PREFERRED_BIN_DIRS="/usr/local/bin /usr/bin ${HOME}/bin"
+PREFERRED_MAN_DIRS="/usr/local/man/man1 /usr/man/man1 /usr/share/man/man1 ${HOME}/man/man1"
+export PREFERRED_BIN_DIRS PREFERRED_MAN_DIRS
+
+install_dir_check ( ) {
+	for dir in ${PREFERRED_BIN_DIRS} ; do
+		if [ -d ${dir} ] && [ -w ${dir} ] ; then
+			INSTALL_DIR_BIN="${dir}"
+			break
+		fi
+	done
+
+	if [ "${INSTALL_DIR_BIN}" = "" ] ; then
+		INSTALL_DIR_BIN="${HOME}/bin"
+	fi
+
+	for dir in ${PREFERRED_MAN_DIRS} ; do
+		if [ -d ${dir} ] && [ -w ${dir} ] ; then
+			INSTALL_DIR_MAN="${dir}"
+			break
+		fi
+	done
+
+	if [ "${INSTALL_DIR_MAN}" = "" ] ; then
+		INSTALL_DIR_MAN="NONE"
+	fi
+
+	BIN_DIR_OK=NO
+	MAN_DIR_OK=NO
+
+	while [ true ] ; do
+		echo "tl installation directory (NONE | [${INSTALL_DIR_BIN}]):"
+		read try_bin_dir
+
+		if [ "${try_bin_dir}" = "" ] ; then
+			try_bin_dir="${INSTALL_DIR_BIN}"
+		fi
+
+		if [ "${try_bin_dir}" = "NONE" ] ; then
+			INSTALL_DIR_BIN=NONE
+			export INSTALL_DIR_BIN
+			break
+		fi
+
+		if [ -d ${try_bin_dir} ] && [ -w ${try_bin_dir} ] ; then
+			INSTALL_DIR_BIN="${try_bin_dir}"
+			export INSTALL_DIR_BIN
+			break
+		fi
+
+		echo "${try_bin_dir} doesn't exist, trying to create it."
+		mkdir -p ${try_bin_dir}
+		if [ $? = 0 ] ; then
+			INSTALL_DIR_BIN="${try_bin_dir}"
+			export INSTALL_DIR_BIN
+			break
+		fi
+	done
+
+	while [ true ] ; do
+		echo "Man page installation directory (NONE | [${INSTALL_DIR_MAN}]):"
+		read try_man_dir
+
+		if [ "${try_man_dir}" = "" ] ; then
+			try_man_dir="${INSTALL_DIR_MAN}"
+		fi
+
+		if [ "${try_man_dir}" = "NONE" ] ; then
+			INSTALL_DIR_MAN=NONE
+			export INSTALL_DIR_MAN
+			break
+		fi
+
+		if [ -d ${try_man_dir} ] && [ -w ${try_man_dir} ] ; then
+			INSTALL_DIR_MAN="${try_man_dir}"
+			export INSTALL_DIR_MAN
+			break
+		fi
+
+		echo "${try_man_dir} doesn't exist, trying to create it."
+		mkdir -p ${try_man_dir}
+		if [ $? = 0 ] ; then
+			INSTALL_DIR_MAN="${try_man_dir}"
+			export INSTALL_DIR_MAN
+			break
+		fi
+	done
+}
+
+parse_args ( ) {
+	STRIP="strip tl"
+	export STRIP
+	for arg in $* ; do
+		case $arg in
+		*)
+			echo "Unknown argument ${arg}, skipping."
+			;;
+		esac
+	done
+}
+
+cc_check ( ) {
+
+	if [ "${CC}" != "" ] ; then
+		echo 'return;' | cc -o /dev/null -E - > /dev/null 2>&1
+		echo "Keeping CC=\"${CC}\""
+		USE_CC="CC = ${CC}"
+		export USE_CC
+		return
+	fi
+
+
+	echo 'return;' | cc -o /dev/null -E - > /dev/null 2>&1
+	if [ $? = 0 ] ; then
+		echo "cc works. Yay."
+		USE_CC="CC = cc"
+		export USE_CC
+		return
+	fi
+
+
+	echo 'return;' | gcc -o /dev/null -E - > /dev/null 2>&1
+	if [ $? = 0 ] ; then
+		echo "cc doesn't work, but gcc does. Using that."
+		USE_CC="CC = gcc"
+		export USE_CC
+		return
+	fi
+}
+
+solaris_check ( ) {
+	uname_result=`uname`
+	if [ "${uname_result}" = "SunOS" ] ; then
+		echo "Hey, this is solaris."
+		OS="-DSOLARIS"
+		export OS
+	fi
+}
+
+make_check ( ) {
+	for m in make gmake pmake ; do
+		retarded=`which ${m} 2>&1 | grep -c " "`
+		if [ $retarded = 0 ] ; then
+			echo "Using ${m}"
+			MAKE="${m}"
+			return 0
+		fi
+	done
+
+	echo "Can't find make"
+	return 1
+}
+
+write_makefile ( ) {
+	regex_install_dir_bin=`echo "${INSTALL_DIR_BIN}" | sed 's=\/=\\\/=g'`
+	regex_install_dir_man=`echo "${INSTALL_DIR_MAN}" | sed 's=\/=\\\/=g'`
+	cat Makefile.in 					\
+		| sed "s/XXX_CC_XXX/${USE_CC}/g"		\
+		| sed "s/XXX_OS_XXX/${OS}/g"			\
+		| sed "s/XXX_STRIP_XXX/${STRIP}/g;"		\
+		| sed "s/XXX_INSTALL_DIR_BIN_XXX/${regex_install_dir_bin}/g;"	\
+		| sed "s/XXX_INSTALL_DIR_MAN_XXX/${regex_install_dir_man}/g;"	\
+		> Makefile
+}
+
+
+# "MAIN"
+parse_args $*
+install_dir_check
+make_check || exit 1
+cc_check
+solaris_check
+
+# This should be last.
+write_makefile
+if [ "${INSTALL_DIR_BIN}" = "NONE" ] ; then
+	${MAKE}
+else
+	${MAKE} install
+fi

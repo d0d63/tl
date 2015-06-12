@@ -1,0 +1,96 @@
+$dodge: UPDATES,v 1.22 2008/11/10 04:43:13 dodge Exp $
+
+Newest changes at the bottom.
+
+===============================================================================
+- initial functional version
+version_1 tagged
+
+===============================================================================
+- fixed retarded compilation flags
+- changed CVS Id: tags to dodge: tags
+- cleaned up ncurses checks
+- will now quit on demand.
+- better selection of load average to use (based on time between updates)
+
+version_2 tagged
+===============================================================================
+- fixed broken choice of which load average to use based on sleep time
+  chosen
+
+version_3 tagged
+===============================================================================
+- updated UPDATES (whoops)
+- Slightly more README
+- Knocked off a couple TODO items, added one
+- Added ability to use pseudo-line-based load average graph instead of
+  columns of splats. Prettier, but still an option and not default.
+- Various formatting and spacing nits.
+
+version_4 tagged
+===============================================================================
+- More portable screen resizing.
+- Support three lines of load average.
+- Wrapped most of debug.c in an #ifdef.
+- "make install" now does something.
+- LICENSE updated for current year.
+- README updated.
+- Removed completed items from TODO.
+
+version_5 tagged
+===============================================================================
+- less retarded default install directory
+- add tl version in help
+- clear memory on (re)allocation before trying to use it.
+
+version_6 tagged
+===============================================================================
+- even less retarded memory allocation
+- fix bug where typing characters would skew graph data
+- more debugging output
+- irrelevant cnr.sh and Makefile crap
+
+version_7 tagged
+===============================================================================
+- "make install" causes build of tl (and installation)
+- added spinner character to acknowledge input
+
+version_8 tagged
+===============================================================================
+- updated UPDATES with stuff forgotten before tagging version_7
+- Add the -3 and -l options to the usage
+- Fixed off-by-one in array keeping track of load average history
+- Fixed off-by-one in spinner character array
+
+version_9 tagged
+===============================================================================
+- Changed how to compile verything. Use "./build" instead of "make" now
+- Attempt to honor $CC environmental variable if present
+- After installation, have "make uninstall" do something useful
+- Removed debugging code
+- Clean up memory usage
+- Clean up signal catching
+- Created man page
+
+version_10 tagged
+===============================================================================
+- less retarded build script
+- refresh every 5 seconds instead of every half second.
+
+version_11 tagged
+===============================================================================
+- fix attempt to read unassigned memory when in bar mode
+- clean up manpage copying when doing "make install"
+
+version_12 tagged
+===============================================================================
+- fix build script for solaris
+- changed scale line character
+- changed default view to three-line mode
+
+version_13 tagged
+===============================================================================
+- Update man page regarding new default mode
+- single-line mode is actually single-line mode again.
+
+version_14 tagged

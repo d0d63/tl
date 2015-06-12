@@ -1,0 +1,29 @@
+$dodge: LICENSE,v 1.3 2006/08/01 21:24:07 dodge Exp $
+$Name:  $
+
+Copyright (c) 2004, 2005, 2006 M. Dodge Mumford. All rights reserved.
+
+This license applies to the version used in the Name: tag above. If the Name:
+tag is blank, then all rights to the software in this package are reserved
+by the author.
+
+If the Name: tag above is not blank, then the license is BSD-ish, as
+follows:
+
+Redistribution and use, in binary and source form, with or without
+modification, are permitted provided that:
+
+1. Redistributions of source code must retain the above copyright
+   notice, this list of conditions and the following disclaimer.
+
+2. The name of the author may not be used to endorse or promote products
+   derived from this software without specific prior written permission.
+
+This software is provided "as is" and any express or implied warranties,
+including (but not limited to) the implied warranties of merchantability and
+fitness for a particular purpose are disclaimed. In no event shall the
+author be liable for any direct, indirect, incidental, special, exemplary,
+or consequential damages. This includes (but is not limited to) procurement
+of substitute goods or services; loss of use, data, or profits; or business
+interruption. 
+

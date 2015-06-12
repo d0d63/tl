@@ -1,0 +1,6 @@
+- use different colors for the 3 lines
+- add screen-like terminal-locking, turning tl into a console-based
+  screensaver
+
+$dodge: TODO,v 1.34 2007/12/23 20:28:28 dodge Exp $
+$Name:  $

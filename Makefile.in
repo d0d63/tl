@@ -1,0 +1,32 @@
+# $dodge: Makefile.in,v 1.11 2015/06/11 01:23:18 dodge Exp $
+# $Name:  $
+
+XXX_CC_XXX
+CFLAGS = -Wall XXX_OS_XXX
+LDFLAGS = -lcurses
+OBJS=
+INSTALL_DIR_BIN = XXX_INSTALL_DIR_BIN_XXX
+INSTALL_DIR_MAN = XXX_INSTALL_DIR_MAN_XXX
+
+all:	tl
+
+tl:	tl.o $(OBJS)
+	$(CC) -o tl $(OBJS) tl.o $(LDFLAGS) 
+
+clean:
+	rm -f *.o tl *core
+
+distclean: clean
+	rm -f Makefile
+
+install: tl
+	XXX_STRIP_XXX
+	cp tl $(INSTALL_DIR_BIN)/tl
+	chmod +x $(INSTALL_DIR_BIN)/tl
+	-cp tl.1 $(INSTALL_DIR_MAN)/tl.1
+	@if [ $? != 0 ] ; then echo "Eh, who needs the manpage anyway" ; fi
+
+uninstall:
+	rm -rf $(INSTALL_DIR_BIN)/tl
+	rm -rf $(INSTALL_DIR_MAN)/tl.1
+

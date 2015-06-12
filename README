@@ -1,0 +1,21 @@
+This is a platform-independent text-based xload-like tool. tload is
+generally cool enough, but it only appears to come with slackware, and
+doesn't trivially port to other operating systems. I also don't like the way
+it deals with changing scales of information--each column may use a
+different scale.
+
+Building:
+There is no "configure", but there is a "build" command. It will do a few
+simple environment checks, compile the source and put it in place.
+
+Development notes:
+- You'd think that resizing text windows would be easy. At least I did. I
+  figured curses would do most of the majik for me. Except for OpenBSD's
+  ncurses implementation, that's completely not the case. Turns out there's
+  a real common ioctl (TIOCGWINSZ) that does it and it's so well known that
+  nobody seems to be interested in mentioning it anywhere. TIOCGWINSZ seems
+  to work well under the BSD's, linux, and OSX, and Solaris 10. Reports of
+  other successes and failures welcomed.
+
+$dodge: README,v 1.10 2014/12/20 11:57:45 dodge Exp $
+$Name:  $

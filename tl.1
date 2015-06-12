@@ -1,0 +1,44 @@
+.TH tl 1
+.SH NAME
+tl - text-based load average graph
+.SH SYNOPSIS
+.TP
+.B tl
+[ -3 ]
+[ -c ]
+[ -h ]
+[ -l ]
+[ -s <delay> ]
+.SH DESCRIPTION
+.I tl
+displays a graph of the load averages. Graphs may be in traditional
+tload(1) style, single-line, or three line graphs. Automatically resize the
+scale of the graph when the size of the window changes. When run without any
+options, the format is that of a bar graph in the tload(1) style.
+.SH OPTIONS
+.TP
+.B -3
+Display a three-line graph, where one line represents the load average over
+the last 1, 5, and 15 minutes.
+.TP
+.B -c
+Display a columnar (bar) graph.
+.TP
+.B -h
+Show the help and exit.
+.TP
+.B -l
+Display the graph using a single line The load average used is based on the
+delay specified with the -s option. If unspecified, the line represents the
+unspecified, the line represents the load average over the last minute.
+.TP
+.B -s <seconds>
+Number of seconds between updates. If unspecified, the default value is 5.
+.SH SEE ALSO
+getloadavg(3), tload(1)
+.SH AUTHOR
+M. Dodge Mumford, dodge-tl@dmumford.com
+.SH VERSION
+$Name:  $
+.TP
+$dodge: tl.1,v 1.5 2008/11/10 04:39:23 dodge Exp $

@@ -1,5 +1,4 @@
 #!/bin/sh
-# $dodge: build,v 1.16 2008/07/25 01:45:00 dodge Exp $
 
 PREFERRED_BIN_DIRS="/usr/local/bin /usr/bin ${HOME}/bin"
 PREFERRED_MAN_DIRS="/usr/local/man/man1 /usr/man/man1 /usr/share/man/man1 ${HOME}/man/man1"

@@ -1,6 +1,4 @@
 /*
-   $dodge: tl.h,v 1.17 2014/12/20 11:54:36 dodge Exp $
-   $Name:  $
 */
 
 #include <stdio.h>

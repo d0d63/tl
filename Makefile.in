@@ -1,6 +1,3 @@
-# $dodge: Makefile.in,v 1.11 2015/06/11 01:23:18 dodge Exp $
-# $Name:  $
-
 XXX_CC_XXX
 CFLAGS = -Wall XXX_OS_XXX
 LDFLAGS = -lcurses

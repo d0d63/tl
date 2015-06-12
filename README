@@ -16,6 +16,3 @@ Development notes:
   nobody seems to be interested in mentioning it anywhere. TIOCGWINSZ seems
   to work well under the BSD's, linux, and OSX, and Solaris 10. Reports of
   other successes and failures welcomed.
-
-$dodge: README,v 1.10 2014/12/20 11:57:45 dodge Exp $
-$Name:  $

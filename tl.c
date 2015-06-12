@@ -1,8 +1,5 @@
 /*
    Be a text-based xload
-
-   $dodge: tl.c,v 1.65 2014/12/20 11:54:36 dodge Exp $
-   $Name:  $
 */
 
 #include "tl.h"

@@ -20,8 +20,9 @@ install: tl
 	XXX_STRIP_XXX
 	cp tl $(INSTALL_DIR_BIN)/tl
 	chmod +x $(INSTALL_DIR_BIN)/tl
-	-cp tl.1 $(INSTALL_DIR_MAN)/tl.1
-	@if [ $? != 0 ] ; then echo "Eh, who needs the manpage anyway" ; fi
+	-cp tl.1 $(INSTALL_DIR_MAN)/tl.1 || echo "Eh, who needs the manpage anyway" ; fi
+	-[ -e $(INSTALL_DIR_MAN)/tl.1 ] && chown root $(INSTALL_DIR_MAN)/tl.1 
+	-[ -e $(INSTALL_DIR_MAN)/tl.1 ] && chmod 644 $(INSTALL_DIR_MAN)/tl.1 
 
 uninstall:
 	rm -rf $(INSTALL_DIR_BIN)/tl
